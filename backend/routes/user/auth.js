@@ -6,7 +6,6 @@ var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var config = require('../../config/auth');
 
 
 router.get('/profile', isLoggedIn, function(req, res){
@@ -21,7 +20,7 @@ router.get('/profile', isLoggedIn, function(req, res){
 
 router.get('/authenticate', (req, res) => {
   if (req.isAuthenticated()) {
-    var token = jwt.sign({_id: req.user.id}, config.jwtSecretKey, {expiresIn: config.jwtExpireTime})
+    var token = jwt.sign({_id: req.user.id}, process.env.JWT, {expiresIn: process.env.JWT_EXPIRE_TIME})
     return res.status(200).send({
       token: token,
       success: true,
@@ -39,7 +38,7 @@ router.post('/login', function(req, res, next) {
     if(user){
       req.logIn(user, function(err) {
         if (err) { return next(err); }
-        var token = jwt.sign({_id: req.user.id}, config.jwtSecretKey, {expiresIn: config.jwtExpireTime});
+        var token = jwt.sign({_id: req.user.id}, process.env.JWT, {expiresIn: process.env.JWT_EXPIRE_TIME});
         res.cookie('token', token)
         return res.status(200).send({
           token: 'JWT ' + token,

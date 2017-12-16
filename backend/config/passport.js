@@ -5,7 +5,6 @@ var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 
 var User       = require('../models/user');
 
-var configAuth = require('./auth');
 module.exports = function(passport) {
 
     passport.serializeUser(function(user, done) {
@@ -86,7 +85,12 @@ module.exports = function(passport) {
 
     }));
 
-    var fbStrategy = configAuth.facebookAuth;
+    var fbStrategy = {
+        'clientID'        : process.env.FACEBOOK_CLIENT_ID,
+        'clientSecret'    : process.env.FACEBOOK_CLIENT_SECRET,
+        'callbackURL'     : process.env.FACEBOOK_CALLBACK_URL,
+        'profileURL': "https://graph.facebook.com/v2.5/me?fields=first_name,last_name,email"
+    };
     fbStrategy.passReqToCallback = true;
     passport.use(new FacebookStrategy(fbStrategy,
     function(req, token, refreshToken, profile, done) {
