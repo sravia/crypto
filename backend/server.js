@@ -1,17 +1,17 @@
-var express = require('express');
-var app = express();
-var port = process.env.PORT || 3000;
+var express  = require('express');
+var app      = express();
+var port     = process.env.PORT || 3000;
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash = require('connect-flash');
+var flash    = require('connect-flash');
 var path = require('path');
-var methodOverride = require('method-override');
+var methodOverride = require('method-override')
 var logger = require('express-logger');
 
-var morgan = require('morgan');
+var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
 var UserModel = require('./models/user');
 
 var configDB = require('./config/database.js');
@@ -22,7 +22,7 @@ app.use(logger({path: "logs.txt"}));
 
 require('./config/passport')(passport);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride());
 app.use(cookieParser());
 
@@ -35,8 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/user', require('./routes/user/auth'));
 
-app.get('*', (req, res) = > {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-})
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
 app.listen(port);
 console.log('The magic happens on port ' + port);

@@ -1,52 +1,51 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {Http, HttpModule, RequestOptions} from '@angular/http';
-import {AuthConfig, AuthHttp} from 'angular2-jwt';
-import {AppComponent} from './app.component';
-import {AppRoutingModule} from './app.routes';
-import {RouterModule} from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { Http, HttpModule, RequestOptions, XHRBackend } from '@angular/http';
+import { AUTH_PROVIDERS, AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routes';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {ProfileComponent} from './user/profile/profile.component';
-import {HomeComponent} from './home/home.component';
-import {ServicesComponent} from './home/services/services.component';
-import {LoginComponent} from './user/login/login.component';
-import {SignupComponent} from './user/signup/signup.component';
-import {UserComponent} from './user/user.component';
-import {AuthService} from './user/auth.service';
-import {AuthenticatedGuard} from './user/authenticated.guard';
-import {UnauthenticatedGuard} from './user/unauthenticated.guard';
+import { ProfileComponent } from './user/profile/profile.component';
+import { HomeComponent } from './home/home.component';
+import { ServicesComponent } from './home/services/services.component';
+import { LoginComponent } from './user/login/login.component';
+import { SignupComponent } from './user/signup/signup.component';
+import { UserComponent } from './user/user.component';
+import { AuthService } from './user/auth.service';
+import { AuthenticatedGuard } from './user/authenticated.guard';
+import { UnauthenticatedGuard } from './user/unauthenticated.guard';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-    return new AuthHttp(new AuthConfig({}), http, options);
+  return new AuthHttp( new AuthConfig({}), http, options);
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        ServicesComponent,
-        ProfileComponent,
-        LoginComponent,
-        SignupComponent,
-        UserComponent
-    ],
-    imports: [
-        BrowserModule,
-        CommonModule,
-        HttpModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AppRoutingModule
-    ],
-    providers: [
-        AuthService,
-        AuthenticatedGuard,
-        UnauthenticatedGuard
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ServicesComponent,
+    ProfileComponent,
+    LoginComponent,
+    SignupComponent,
+    UserComponent
+  ],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    HttpModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule
+  ],
+  providers: [
+    AuthService,
+    AuthenticatedGuard,
+    UnauthenticatedGuard
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
