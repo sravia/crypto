@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/toPromise';
+import { map, filter } from 'rxjs/operators';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
