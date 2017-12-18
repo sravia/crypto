@@ -16,6 +16,10 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 var UserModel = require('./models/user');
 
+require("fs").readdirSync(require("path").join(__dirname, "modules")).forEach(function(file) {
+  require("./modules/" + file);
+});
+
 mongoose.connect(process.env.MONGO_URL);
 
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
